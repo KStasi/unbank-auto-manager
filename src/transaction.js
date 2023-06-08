@@ -12,7 +12,7 @@ const {
 async function prepareTransaction(ever, callData) {
   const accountFactoryAddress = new Address(ACCOUNT_FACTORY_ADDRESS);
   const managerCollectionAddress = new Address(MANAGER_COLLECTION_ADDRESS);
-
+  console.log(managerCollectionAddress);
   const managerCollection = new ever.Contract(
     managerCollectionAbi,
     managerCollectionAddress

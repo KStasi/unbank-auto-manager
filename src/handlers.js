@@ -27,7 +27,6 @@ module.exports = {
         userAddress
       );
 
-      console.log(retailAccountAddress);
       res.status(200).json({ message: retailAccountAddress.toString() });
     } catch (error) {
       console.log(error);

@@ -11,7 +11,6 @@ const { generateKeys } = require("./utils");
 const { MANAGER_ADDRESS, MANAGER_SEED_PHRASE } = require("./constants");
 
 async function setupProvider() {
-  console.log(MANAGER_SEED_PHRASE, 10);
   const keys = await generateKeys(MANAGER_SEED_PHRASE, 10);
 
   const keystore = new SimpleKeystore(
@@ -32,7 +31,14 @@ async function setupProvider() {
     forceUseFallback: true,
     fallback: async () =>
       EverscaleStandaloneClient.create({
-        connection: "local",
+        connection: {
+          id: 1010,
+          group: "venom_testnet",
+          type: "jrpc",
+          data: {
+            endpoint: "https://jrpc-devnet.venom.foundation/rpc",
+          },
+        },
         keystore,
         accountsStorage,
         clock,

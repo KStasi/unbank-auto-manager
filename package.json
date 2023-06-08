@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "docker-build": "docker build -t unbank-auto-manager .",
+    "docker-run": "docker run -p 3007:3007 --env-file .env --restart always -d unbank-auto-manager"
   },
   "repository": {
     "type": "git",

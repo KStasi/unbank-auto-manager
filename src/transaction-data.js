@@ -4,6 +4,7 @@ const { Address } = require("everscale-inpage-provider");
 const accountFactoryAbi = require("./abi/RetailAccountFactory.abi.json");
 const managerCollectionAbi = require("./abi/ManagerCollection.abi.json");
 const managerNftBaseAbi = require("./abi/ManagerNftBase.abi.json");
+const retailAccountAbi = require("./abi/RetailAccount.abi.json");
 const {
   ACCOUNT_FACTORY_ADDRESS,
   MANAGER_COLLECTION_ADDRESS,
