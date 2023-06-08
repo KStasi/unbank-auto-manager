@@ -1,7 +1,7 @@
 const { Address } = require("everscale-inpage-provider");
 const prepareTransaction = require("./transaction");
 const { toNano } = require("./utils");
-const { MANAGER_ADDRESS } = require("./constants");
+const { MANAGER_ADDRESS, ACCOUNT_FACTORY_ADDRESS } = require("./constants");
 const {
   prepareCreateAccountData,
   getRetailAccountAddress,
@@ -13,10 +13,15 @@ module.exports = {
     const ever = req.ever;
 
     const userAddress = new Address(req.body.userAddress);
+    const accountFactoryAddress = new Address(ACCOUNT_FACTORY_ADDRESS);
 
     try {
       const data = await prepareCreateAccountData(ever, userAddress);
-      const { preparedTransaction } = await prepareTransaction(ever, data);
+      const { preparedTransaction } = await prepareTransaction(
+        ever,
+        data,
+        accountFactoryAddress
+      );
 
       await preparedTransaction.send({
         from: MANAGER_ADDRESS,
@@ -50,7 +55,11 @@ module.exports = {
         currencyAddress,
         otherCardDetails
       );
-      const { preparedTransaction } = await prepareTransaction(ever, data);
+      const { preparedTransaction } = await prepareTransaction(
+        ever,
+        data,
+        retailAccountAddress
+      );
 
       await preparedTransaction.send({
         from: MANAGER_ADDRESS,

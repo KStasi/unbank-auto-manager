@@ -12,7 +12,6 @@ const { MANAGER_ADDRESS, MANAGER_SEED_PHRASE } = require("./constants");
 
 async function setupProvider() {
   const keys = await generateKeys(MANAGER_SEED_PHRASE, 10);
-
   const keystore = new SimpleKeystore(
     [...keys].reduce(
       (acc, keyPair, idx) => ({

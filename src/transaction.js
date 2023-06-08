@@ -9,10 +9,8 @@ const {
   MANAGER_ADDRESS,
 } = require("./constants");
 
-async function prepareTransaction(ever, callData) {
-  const accountFactoryAddress = new Address(ACCOUNT_FACTORY_ADDRESS);
+async function prepareTransaction(ever, callData, dest) {
   const managerCollectionAddress = new Address(MANAGER_COLLECTION_ADDRESS);
-  console.log(managerCollectionAddress);
   const managerCollection = new ever.Contract(
     managerCollectionAbi,
     managerCollectionAddress
@@ -20,9 +18,9 @@ async function prepareTransaction(ever, callData) {
 
   const managerCollectionCallData = await managerCollection.methods
     .callAsAnyManager({
-      owner: managerCollectionAddress,
-      dest: accountFactoryAddress,
-      value: toNano(1),
+      owner: MANAGER_ADDRESS,
+      dest,
+      value: toNano(2),
       bounce: false,
       flags: 0,
       payload: callData,
@@ -41,7 +39,7 @@ async function prepareTransaction(ever, callData) {
 
   const preparedTransaction = await managerNFTInstance.methods.sendTransaction({
     dest: managerCollectionAddress,
-    value: toNano(2),
+    value: toNano(2.01),
     bounce: false,
     flags: 0,
     payload: managerCollectionCallData,
