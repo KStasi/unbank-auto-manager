@@ -1,0 +1,28 @@
+{
+  "name": "unbank-auto-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KStasi/unbank-auto-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KStasi/unbank-auto-manager/issues"
+  },
+  "homepage": "https://github.com/KStasi/unbank-auto-manager#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.1.4",
+    "everscale-crypto": "^0.1.1",
+    "everscale-inpage-provider": "^0.3.61",
+    "everscale-standalone-client": "^2.1.19",
+    "express": "^4.18.2"
+  }
+}
