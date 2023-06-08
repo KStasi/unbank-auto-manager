@@ -1,7 +1,6 @@
 const BigNumber = require("bignumber.js");
 const { toNano } = require("./utils");
 const { Address } = require("everscale-inpage-provider");
-const accountFactoryAbi = require("./abi/RetailAccountFactory.abi.json");
 const managerCollectionAbi = require("./abi/ManagerCollection.abi.json");
 const managerNftBaseAbi = require("./abi/ManagerNftBase.abi.json");
 const {
@@ -10,24 +9,15 @@ const {
   MANAGER_ADDRESS,
 } = require("./constants");
 
-async function prepareTransaction(ever, userAddress) {
+async function prepareTransaction(ever, callData) {
   const accountFactoryAddress = new Address(ACCOUNT_FACTORY_ADDRESS);
   const managerCollectionAddress = new Address(MANAGER_COLLECTION_ADDRESS);
 
-  const accountFactory = new ever.Contract(
-    accountFactoryAbi,
-    accountFactoryAddress
-  );
   const managerCollection = new ever.Contract(
     managerCollectionAbi,
     managerCollectionAddress
   );
-  const retailAccountAddress = await accountFactory.methods
-    .retailAccountAddress({ pubkey: null, owner: userAddress, answerId: 2 })
-    .call();
-  const accountFactoryCallData = await accountFactory.methods
-    .deployRetailAccount({ pubkey: null, owner: userAddress })
-    .encodeInternal();
+
   const managerCollectionCallData = await managerCollection.methods
     .callAsAnyManager({
       owner: managerCollectionAddress,
@@ -35,7 +25,7 @@ async function prepareTransaction(ever, userAddress) {
       value: toNano(1),
       bounce: false,
       flags: 0,
-      payload: accountFactoryCallData,
+      payload: callData,
     })
     .encodeInternal();
   const managerAddressDetails = MANAGER_ADDRESS.toString().split(":");
@@ -57,7 +47,7 @@ async function prepareTransaction(ever, userAddress) {
     payload: managerCollectionCallData,
   });
 
-  return { retailAccountAddress, preparedTransaction };
+  return { preparedTransaction };
 }
 
 module.exports = prepareTransaction;

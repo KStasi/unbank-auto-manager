@@ -1,8 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { createAccount, issueCard } = require("./src/handlers");
-
+const setupProvider = require("./src/setup");
 const app = express();
+let ever;
+
+app.use(async (req, res, next) => {
+  if (!ever) {
+    ever = await setupProvider();
+  }
+  req.ever = ever;
+  next();
+});
 app.use(bodyParser.json());
 
 app.post("/create-account", createAccount);
