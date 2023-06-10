@@ -3,14 +3,10 @@ const bodyParser = require("body-parser");
 const { createAccount, issueCard, topUpCard } = require("./src/handlers");
 const setupProvider = require("./src/setup");
 const app = express();
+const cors = require("cors");
 let ever;
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+app.use(cors());
 
 app.use(async (req, res, next) => {
   if (!ever) {
