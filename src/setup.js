@@ -8,7 +8,11 @@ const {
 } = require("everscale-standalone-client/nodejs");
 
 const { generateKeys } = require("./utils");
-const { MANAGER_ADDRESS, MANAGER_SEED_PHRASE } = require("./constants");
+const {
+  MANAGER_ADDRESS,
+  MANAGER_SEED_PHRASE,
+  FOUNDER_ADDRESS,
+} = require("./constants");
 
 async function setupProvider() {
   const keys = await generateKeys(MANAGER_SEED_PHRASE, 10);
@@ -23,6 +27,7 @@ async function setupProvider() {
   );
   const accountsStorage = new SimpleAccountsStorage();
   accountsStorage.addAccount(new EverWalletAccount(MANAGER_ADDRESS));
+  accountsStorage.addAccount(new EverWalletAccount(FOUNDER_ADDRESS));
 
   const clock = new Clock();
 

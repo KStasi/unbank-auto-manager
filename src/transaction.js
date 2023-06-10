@@ -20,7 +20,7 @@ async function prepareTransaction(ever, callData, dest) {
     .callAsAnyManager({
       owner: MANAGER_ADDRESS,
       dest,
-      value: toNano(2),
+      value: toNano(1.2),
       bounce: false,
       flags: 0,
       payload: callData,
@@ -39,7 +39,7 @@ async function prepareTransaction(ever, callData, dest) {
 
   const preparedTransaction = await managerNFTInstance.methods.sendTransaction({
     dest: managerCollectionAddress,
-    value: toNano(2.01),
+    value: toNano(1.3),
     bounce: false,
     flags: 0,
     payload: managerCollectionCallData,
